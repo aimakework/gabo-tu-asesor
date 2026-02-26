@@ -1,6 +1,11 @@
+"use client";
+
 import Image from "next/image";
+import { useModal } from "@/context/ModalContext";
 
 export default function AboutSection() {
+  const { openModal } = useModal();
+
   return (
     <section id="about" className="py-24 bg-slate-50">
       <div className="max-w-6xl mx-auto px-6">
@@ -30,8 +35,8 @@ export default function AboutSection() {
             </div>
 
             <div className="mt-12">
-              <a
-                href="#form"
+              <button
+                onClick={openModal}
                 className="inline-flex items-center gap-4 text-slate-900 font-medium hover:text-amber-600 transition-colors group"
               >
                 <div className="w-12 h-12 rounded-full border border-slate-200 flex items-center justify-center group-hover:border-amber-500 transition-colors">
@@ -39,8 +44,8 @@ export default function AboutSection() {
                     <path d="M8 5v14l11-7z" />
                   </svg>
                 </div>
-                <span className="tracking-wide uppercase text-sm">Ver video presentación</span>
-              </a>
+                <span className="tracking-wide uppercase text-sm">Iniciar Diagnóstico</span>
+              </button>
             </div>
           </div>
 

@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
+import { ModalProvider } from "@/context/ModalContext";
+import FormModal from "@/components/FormModal";
 
 const inter = Inter({
   variable: "--font-body",
@@ -30,7 +32,10 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${playfair.variable} font-sans antialiased`}
       >
-        {children}
+        <ModalProvider>
+          {children}
+          <FormModal />
+        </ModalProvider>
       </body>
     </html>
   );

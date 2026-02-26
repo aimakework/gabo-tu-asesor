@@ -2,9 +2,11 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import { useModal } from "@/context/ModalContext";
 
 export default function Hero() {
   const [mounted, setMounted] = useState(false);
+  const { openModal } = useModal();
 
   useEffect(() => {
     setMounted(true);
@@ -47,12 +49,12 @@ export default function Hero() {
             </p>
 
             <div className="flex flex-col sm:flex-row items-start gap-6">
-              <a
-                href="#form"
+              <button
+                onClick={openModal}
                 className="btn-primary px-10 py-4 rounded-none font-medium text-lg tracking-wide min-w-[200px] text-center hover:shadow-xl transition-all duration-300"
               >
                 Iniciar diagnóstico
-              </a>
+              </button>
               <a
                 href="#about"
                 className="px-10 py-4 rounded-none font-medium text-lg tracking-wide text-slate-900 border-b border-slate-900 hover:text-amber-600 hover:border-amber-600 transition-colors flex items-center gap-2"
