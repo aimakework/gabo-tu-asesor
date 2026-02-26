@@ -21,7 +21,7 @@ export default function CTAFinal() {
             Confidencial y sin compromiso
           </span>
           <h2 className="font-[family-name:var(--font-heading)] text-4xl md:text-5xl font-bold text-white mb-6 leading-tight">
-            ¿Listo para tener <span className="text-amber-500">claridad financiera</span>?
+            ¿Listo para tener <span className="text-[#F59E0B]">claridad financiera</span>?
           </h2>
           <p className="text-lg text-slate-400 max-w-2xl mx-auto leading-relaxed font-light">
             Toma 5-7 minutos para completar el diagnóstico. Si tu perfil encaja con nuestra metodología, podrás agendar una sesión privada de estrategia.
@@ -30,7 +30,7 @@ export default function CTAFinal() {
 
         <button
           onClick={openModal}
-          className="btn-primary px-12 py-5 rounded-xl font-bold text-xl tracking-wide shadow-2xl shadow-amber-500/20 hover:shadow-amber-500/40 transition-all duration-300 transform hover:-translate-y-1"
+          className="btn-primary px-12 py-5 rounded-xl font-bold text-xl tracking-wide shadow-2xl shadow-[#F59E0B]/20 hover:shadow-[#F59E0B]/40 transition-all duration-300 transform hover:-translate-y-1"
         >
           Iniciar Diagnóstico Ahora
         </button>

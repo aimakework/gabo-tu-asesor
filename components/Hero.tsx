@@ -30,8 +30,8 @@ export default function Hero() {
             }`}
           >
             <div className="inline-flex items-center gap-3 mb-8">
-              <span className="h-px w-8 bg-amber-500"></span>
-              <span className="text-sm font-semibold tracking-widest text-amber-600 uppercase">
+              <span className="h-px w-8 bg-[#F59E0B]"></span>
+              <span className="text-sm font-semibold tracking-widest text-[#F59E0B] uppercase">
                 Exclusivo para personas inteligentes
               </span>
             </div>
@@ -57,7 +57,7 @@ export default function Hero() {
               </button>
               <a
                 href="#about"
-                className="px-10 py-4 rounded-none font-medium text-lg tracking-wide text-slate-900 border-b border-slate-900 hover:text-amber-600 hover:border-amber-600 transition-colors flex items-center gap-2"
+                className="px-10 py-4 rounded-none font-medium text-lg tracking-wide text-slate-900 border-b border-slate-900 hover:text-[#F59E0B] hover:border-[#F59E0B] transition-colors flex items-center gap-2"
               >
                 Conocer metodología
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
@@ -77,7 +77,7 @@ export default function Hero() {
               <div className="absolute top-10 left-10 right-10 bottom-10 border border-slate-200"></div>
               
               {/* Floating Cards simulating strategy */}
-              <div className="absolute top-1/4 -left-12 bg-white p-6 shadow-[0_20px_50px_-12px_rgba(0,0,0,0.1)] max-w-xs border-l-4 border-amber-500 animate-float" style={{ animationDelay: "0s" }}>
+              <div className="absolute top-1/4 -left-12 bg-white p-6 shadow-[0_20px_50px_-12px_rgba(0,0,0,0.1)] max-w-xs border-l-4 border-[#F59E0B] animate-float" style={{ animationDelay: "0s" }}>
                 <div className="flex items-center gap-4 mb-3">
                   <div className="w-10 h-10 bg-slate-50 flex items-center justify-center text-slate-900">
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>
@@ -91,7 +91,7 @@ export default function Hero() {
 
               <div className="absolute bottom-1/4 -right-8 bg-slate-900 p-6 shadow-2xl max-w-xs text-white animate-float" style={{ animationDelay: "2s" }}>
                 <div className="flex items-center gap-4 mb-2">
-                  <div className="w-10 h-10 bg-white/10 flex items-center justify-center text-amber-400">
+                  <div className="w-10 h-10 bg-white/10 flex items-center justify-center text-[#F59E0B]">
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>
                   </div>
                   <span className="font-serif text-lg">Control</span>

@@ -45,7 +45,7 @@ export default function AnalysisCards() {
       <div className="max-w-6xl mx-auto px-6">
         <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
           <div className="max-w-2xl">
-            <span className="text-xs font-bold tracking-[0.2em] text-amber-600 uppercase mb-4 block">
+            <span className="text-xs font-bold tracking-[0.2em] text-[#F59E0B] uppercase mb-4 block">
               Metodología Integral
             </span>
             <h2 className="font-[family-name:var(--font-heading)] text-4xl md:text-5xl font-bold text-slate-900">
