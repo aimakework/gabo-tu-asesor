@@ -25,7 +25,7 @@ export default function Hero() {
         >
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-50 border border-slate-200 text-sm font-medium text-slate-600 mb-8 shadow-sm hover:shadow-md transition-shadow cursor-default">
             <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-            Exclusivo para ingresos +$55k MXN
+            Exclusivo para personas inteligentes
           </div>
 
           <h1 className="font-[family-name:var(--font-heading)] text-5xl md:text-6xl lg:text-7xl font-bold text-slate-900 leading-[1.1] tracking-tight mb-8">

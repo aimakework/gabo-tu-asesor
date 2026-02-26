@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Header() {
   return (
@@ -6,14 +7,17 @@ export default function Header() {
       <div className="flex justify-between items-center px-6 py-4 max-w-7xl mx-auto">
         <Link
           href="#"
-          className="font-[family-name:var(--font-heading)] text-2xl text-slate-900 no-underline tracking-tight font-bold flex items-center gap-2 group"
+          className="flex items-center gap-2 group"
         >
-          <div className="w-8 h-8 bg-slate-900 rounded-lg flex items-center justify-center text-white font-serif italic group-hover:bg-blue-600 transition-colors">
-            G
+          <div className="relative h-12 w-48">
+            <Image
+              src="/logo.png"
+              alt="Gabo Tu Asesor"
+              fill
+              className="object-contain object-left"
+              priority
+            />
           </div>
-          <span>
-            Gabo <span className="font-normal text-slate-400">Tu Asesor</span>
-          </span>
         </Link>
         
         <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-slate-600">
