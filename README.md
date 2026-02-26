@@ -31,9 +31,18 @@ npm start
 
 ## Despliegue en Coolify
 
-1. Crear repositorio Git y hacer push
-2. En Coolify: Nueva aplicación → conectar repositorio
-3. Build command: `npm ci && npm run build`
-4. Start command: `npx prisma migrate deploy && npm start` (o ejecutar migraciones en un script separado)
-5. Añadir variable `DATABASE_URL` (PostgreSQL)
-6. Crear base de datos PostgreSQL en Coolify si no existe
+### Opción A: Con Dockerfile (recomendado)
+
+1. En Coolify: **Nueva aplicación** → **Dockerfile** → conectar repo `aimakework/gabo-tu-asesor`
+2. Crear **base de datos PostgreSQL** en Coolify (o usar una existente)
+3. Añadir variable de entorno: `DATABASE_URL` = `postgresql://user:pass@host:5432/dbname`
+4. El Dockerfile ya incluye migraciones al iniciar
+5. Desplegar
+
+### Opción B: Sin Dockerfile (Buildpack)
+
+1. En Coolify: **Nueva aplicación** → **Node.js** → conectar repo
+2. **Build command:** `npm ci && npm run build`
+3. **Start command:** `npx prisma migrate deploy && npm start`
+4. **Port:** 3000
+5. Añadir `DATABASE_URL` y desplegar
