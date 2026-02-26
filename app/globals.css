@@ -6,8 +6,8 @@
   --color-bg: #0f172a;
   --color-surface: #1e293b;
   --color-primary: #ffffff;
-  --color-accent: #c5a065;
-  --color-accent-light: #e6c894;
+  --color-accent: #F59E0B; /* Amarillo más fiel al logo (Amber 500) */
+  --color-accent-light: #FCD34D; /* Amber 300 */
   --color-text-main: #f1f5f9;
   --color-text-muted: #94a3b8;
 }
@@ -53,9 +53,9 @@ html {
 }
 
 @keyframes glow {
-  0% { box-shadow: 0 0 5px rgba(197, 160, 101, 0.2); }
-  50% { box-shadow: 0 0 20px rgba(197, 160, 101, 0.6); }
-  100% { box-shadow: 0 0 5px rgba(197, 160, 101, 0.2); }
+  0% { box-shadow: 0 0 5px rgba(245, 158, 11, 0.2); }
+  50% { box-shadow: 0 0 20px rgba(245, 158, 11, 0.6); }
+  100% { box-shadow: 0 0 5px rgba(245, 158, 11, 0.2); }
 }
 
 .animate-fade-in {
@@ -83,7 +83,7 @@ html {
 
 /* Text Gradients */
 .text-gradient-gold {
-  background: linear-gradient(135deg, #e6c894 0%, #c5a065 100%);
+  background: linear-gradient(135deg, #FCD34D 0%, #F59E0B 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -98,7 +98,7 @@ html {
 
 /* Buttons */
 .btn-primary {
-  background: linear-gradient(135deg, var(--color-accent) 0%, #b08f54 100%);
+  background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
   color: white;
   position: relative;
   overflow: hidden;
@@ -113,7 +113,7 @@ html {
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(135deg, #b08f54 0%, var(--color-accent) 100%);
+  background: linear-gradient(135deg, #D97706 0%, #F59E0B 100%);
   z-index: -1;
   transition: opacity 0.3s ease;
   opacity: 0;
@@ -125,7 +125,7 @@ html {
 
 .btn-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 10px 25px -5px rgba(197, 160, 101, 0.4);
+  box-shadow: 0 10px 25px -5px rgba(245, 158, 11, 0.4);
 }
 
 /* Spotlight Effect Utility */
