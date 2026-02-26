@@ -29,9 +29,9 @@ const socialLinks = [
 
 export default function Footer() {
   return (
-    <footer className="relative bg-[#0f172a] text-white overflow-hidden">
+    <footer className="relative bg-white border-t border-slate-200 overflow-hidden">
       {/* Línea decorativa superior */}
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#F4B123]/60 to-transparent" />
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#F4B123] to-transparent" />
       
       <div className="max-w-6xl mx-auto px-6 py-20">
         {/* Bloque principal */}
@@ -48,13 +48,13 @@ export default function Footer() {
               />
             </Link>
             <div>
-              <h3 className="font-[family-name:var(--font-heading)] font-bold text-xl text-white tracking-tight">
+              <h3 className="font-[family-name:var(--font-heading)] font-bold text-xl text-slate-900 tracking-tight">
                 Gabo Tu Asesor
               </h3>
-              <p className="text-slate-400 text-sm mt-1.5 max-w-[220px]">
+              <p className="text-slate-600 text-sm mt-1.5 max-w-[220px]">
                 Consultoría Financiera Estratégica
               </p>
-              <p className="text-[#F4B123]/90 text-xs font-medium tracking-widest uppercase mt-3">
+              <p className="text-[#F4B123] text-xs font-medium tracking-widest uppercase mt-3">
                 Exclusivo para personas inteligentes
               </p>
             </div>
@@ -62,7 +62,7 @@ export default function Footer() {
 
           {/* Redes sociales */}
           <div className="flex flex-col items-center gap-4">
-            <span className="text-xs font-semibold tracking-[0.2em] text-slate-500 uppercase">
+            <span className="text-xs font-semibold tracking-[0.2em] text-slate-600 uppercase">
               Síguenos
             </span>
             <div className="flex items-center gap-4">
@@ -72,7 +72,7 @@ export default function Footer() {
                   href={item.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-slate-300 hover:bg-[#F4B123] hover:text-[#0f172a] hover:border-[#F4B123]/50 transition-all duration-300 hover:scale-110"
+                  className="w-12 h-12 rounded-xl bg-slate-100 border border-slate-200 flex items-center justify-center text-slate-600 hover:bg-[#F4B123] hover:text-white hover:border-[#F4B123] transition-all duration-300 hover:scale-110"
                   aria-label={item.name}
                 >
                   {item.icon}
@@ -83,16 +83,16 @@ export default function Footer() {
         </div>
 
         {/* Separador */}
-        <div className="my-12 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+        <div className="my-12 h-px bg-slate-200" />
 
         {/* Pie inferior */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-6 text-center sm:text-left">
-          <p className="text-slate-500 text-sm">
+          <p className="text-slate-600 text-sm">
             © {new Date().getFullYear()} Gabo Tu Asesor. Todos los derechos reservados.
           </p>
           <Link
             href="#"
-            className="text-slate-400 hover:text-[#F4B123] text-sm font-medium transition-colors"
+            className="text-slate-600 hover:text-[#F4B123] text-sm font-medium transition-colors"
           >
             Aviso de Privacidad
           </Link>
