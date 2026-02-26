@@ -1,36 +1,39 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Gabo Tu Asesor - Diagnóstico Financiero
 
-## Getting Started
+Aplicación web con formulario dinámico de diagnóstico financiero para profesionistas con ingresos desde $55,000 MXN.
 
-First, run the development server:
+## Stack
+
+- **Frontend**: Next.js 14, React 18, Tailwind CSS
+- **Backend**: Next.js API Routes
+- **Base de datos**: PostgreSQL + Prisma
+
+## Desarrollo local
 
 ```bash
+npm install
+cp .env.example .env
+# Editar .env con tu DATABASE_URL de PostgreSQL
+npx prisma generate
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Build y producción
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm run build
+npm start
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Variables de entorno
 
-## Learn More
+- `DATABASE_URL`: URL de conexión a PostgreSQL (ej: `postgresql://user:pass@host:5432/dbname`)
 
-To learn more about Next.js, take a look at the following resources:
+## Despliegue en Coolify
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. Crear repositorio Git y hacer push
+2. En Coolify: Nueva aplicación → conectar repositorio
+3. Build command: `npm ci && npm run build`
+4. Start command: `npx prisma migrate deploy && npm start` (o ejecutar migraciones en un script separado)
+5. Añadir variable `DATABASE_URL` (PostgreSQL)
+6. Crear base de datos PostgreSQL en Coolify si no existe
