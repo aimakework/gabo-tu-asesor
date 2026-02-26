@@ -11,7 +11,7 @@ export default function AboutSection() {
       <div className="max-w-6xl mx-auto px-6">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
           <div className="order-2 lg:order-1">
-            <span className="text-xs font-bold tracking-[0.2em] text-[#F59E0B] uppercase mb-6 block">
+            <span className="text-xs font-bold tracking-[0.2em] text-[#F4B123] uppercase mb-6 block">
               Sobre Gabo
             </span>
             <h2 className="font-[family-name:var(--font-heading)] text-4xl md:text-5xl font-bold text-slate-900 mb-10 leading-tight">
@@ -29,7 +29,7 @@ export default function AboutSection() {
                 transformar ingresos altos en patrimonio sólido, mediante
                 optimización fiscal y previsión a largo plazo.
               </p>
-              <p className="border-l-2 border-[#F59E0B] pl-6 italic text-slate-500">
+              <p className="border-l-2 border-[#F4B123] pl-6 italic text-slate-500">
                 "Trabajo bajo un modelo consultivo: Si detecto que puedo aportar valor real a tu situación, avanzamos. Si no, te lo haré saber con total transparencia."
               </p>
             </div>
@@ -37,9 +37,9 @@ export default function AboutSection() {
             <div className="mt-12">
               <button
                 onClick={openModal}
-                className="inline-flex items-center gap-4 text-slate-900 font-medium hover:text-[#F59E0B] transition-colors group"
+                className="inline-flex items-center gap-4 text-slate-900 font-medium hover:text-[#F4B123] transition-colors group"
               >
-                <div className="w-12 h-12 rounded-full border border-slate-200 flex items-center justify-center group-hover:border-[#F59E0B] transition-colors">
+                <div className="w-12 h-12 rounded-full border border-slate-200 flex items-center justify-center group-hover:border-[#F4B123] transition-colors">
                   <svg className="w-4 h-4 ml-1" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M8 5v14l11-7z" />
                   </svg>

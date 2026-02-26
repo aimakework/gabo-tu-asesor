@@ -32,7 +32,7 @@ export default function Header() {
           </Link>
           <button 
             onClick={openModal}
-            className="px-6 py-3 bg-slate-900 text-white hover:bg-[#F59E0B] transition-colors duration-300"
+            className="px-6 py-3 bg-slate-900 text-white hover:bg-[#F4B123] transition-colors duration-300"
           >
             Iniciar Diagnóstico
           </button>

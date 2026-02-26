@@ -43,8 +43,8 @@ export default function ProcessSteps() {
 
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {steps.map((step, i) => (
-            <div key={i} className="relative pt-8 border-t border-slate-200 group hover:border-[#F59E0B] transition-colors duration-500">
-              <span className="text-4xl font-serif text-slate-200 group-hover:text-[#F59E0B] transition-colors duration-500 block mb-6">
+            <div key={i} className="relative pt-8 border-t border-slate-200 group hover:border-[#F4B123] transition-colors duration-500">
+              <span className="text-4xl font-serif text-slate-200 group-hover:text-[#F4B123] transition-colors duration-500 block mb-6">
                 {step.num}
               </span>
               <h3 className="font-[family-name:var(--font-heading)] text-xl font-bold mb-4 text-slate-900">

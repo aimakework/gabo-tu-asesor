@@ -5,7 +5,7 @@ const CheckIcon = () => (
     viewBox="0 0 24 24"
     stroke="currentColor"
     strokeWidth={3}
-    className="w-5 h-5 shrink-0 text-[#F59E0B]"
+    className="w-5 h-5 shrink-0 text-[#F4B123]"
   >
     <path
       strokeLinecap="round"
@@ -60,8 +60,8 @@ export default function FilterSection() {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16">
           <div className="bg-white/5 border border-white/10 rounded-2xl p-8 backdrop-blur-sm hover:bg-white/[0.07] transition-colors">
-            <h3 className="font-sans text-sm uppercase tracking-[0.15em] text-[#F59E0B] mb-8 font-bold flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-[#F59E0B] shadow-[0_0_10px_rgba(245,158,11,0.5)]"></span>
+            <h3 className="font-sans text-sm uppercase tracking-[0.15em] text-[#F4B123] mb-8 font-bold flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-[#F4B123] shadow-[0_0_10px_rgba(244,177,35,0.5)]"></span>
               Es ideal si:
             </h3>
             <ul className="list-none space-y-6">

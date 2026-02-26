@@ -61,9 +61,9 @@ export default function DynamicForm({ onSuccess }: DynamicFormProps) {
     );
   }
 
-  const inputClasses = "w-full px-0 py-3 bg-transparent border-b-2 border-slate-200 text-[#0f172a] placeholder-slate-400 focus:outline-none focus:border-[#F59E0B] transition-colors font-medium text-lg";
+  const inputClasses = "w-full px-0 py-3 bg-transparent border-b-2 border-slate-200 text-[#0f172a] placeholder-slate-400 focus:outline-none focus:border-[#F4B123] transition-colors font-medium text-lg";
   const labelClasses = "block text-slate-500 text-sm uppercase tracking-wider font-bold mb-1";
-  const selectClasses = "w-full px-0 py-3 bg-transparent border-b-2 border-slate-200 text-[#0f172a] focus:outline-none focus:border-[#F59E0B] transition-colors font-medium text-lg cursor-pointer appearance-none";
+  const selectClasses = "w-full px-0 py-3 bg-transparent border-b-2 border-slate-200 text-[#0f172a] focus:outline-none focus:border-[#F4B123] transition-colors font-medium text-lg cursor-pointer appearance-none";
 
   return (
     <form onSubmit={handleSubmit} className="space-y-10">
@@ -116,8 +116,8 @@ export default function DynamicForm({ onSuccess }: DynamicFormProps) {
         <div className="flex gap-6 mt-3">
           {['si', 'no'].map((opt) => (
             <label key={opt} className="flex items-center gap-3 cursor-pointer group/radio">
-              <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center transition-colors ${answers.cabezaFamilia === opt ? 'border-[#F59E0B]' : 'border-slate-300 group-hover/radio:border-slate-400'}`}>
-                {answers.cabezaFamilia === opt && <div className="w-3 h-3 rounded-full bg-[#F59E0B]" />}
+              <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center transition-colors ${answers.cabezaFamilia === opt ? 'border-[#F4B123]' : 'border-slate-300 group-hover/radio:border-slate-400'}`}>
+                {answers.cabezaFamilia === opt && <div className="w-3 h-3 rounded-full bg-[#F4B123]" />}
               </div>
               <input
                 type="radio"
@@ -140,8 +140,8 @@ export default function DynamicForm({ onSuccess }: DynamicFormProps) {
           <div className="flex gap-6 mt-3">
             {['si', 'no'].map((opt) => (
               <label key={opt} className="flex items-center gap-3 cursor-pointer group/radio">
-                <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center transition-colors ${answers.inversiones === opt ? 'border-[#F59E0B]' : 'border-slate-300 group-hover/radio:border-slate-400'}`}>
-                  {answers.inversiones === opt && <div className="w-3 h-3 rounded-full bg-[#F59E0B]" />}
+                <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center transition-colors ${answers.inversiones === opt ? 'border-[#F4B123]' : 'border-slate-300 group-hover/radio:border-slate-400'}`}>
+                  {answers.inversiones === opt && <div className="w-3 h-3 rounded-full bg-[#F4B123]" />}
                 </div>
                 <input
                   type="radio"
