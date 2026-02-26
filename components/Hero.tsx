@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 
 export default function Hero() {
   const [mounted, setMounted] = useState(false);
@@ -11,41 +12,51 @@ export default function Hero() {
 
   return (
     <section className="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
-      {/* Background Elements */}
-      <div className="absolute inset-0 -z-10 bg-white">
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-50/50 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/2" />
-        <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-amber-50/50 rounded-full blur-[100px] translate-y-1/2 -translate-x-1/2" />
+      {/* Background Image with Overlay */}
+      <div className="absolute inset-0 -z-10">
+        <Image
+          src="/hero-bg.png"
+          alt="Background"
+          fill
+          className="object-cover object-center opacity-40"
+          priority
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#0f172a]/90 via-[#0f172a]/80 to-[#0f172a]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,#0f172a_100%)]" />
       </div>
 
-      <div className="max-w-4xl mx-auto px-6 text-center relative z-10">
+      <div className="max-w-5xl mx-auto px-6 text-center relative z-10">
         <div
-          className={`transition-all duration-700 transform ${
-            mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+          className={`transition-all duration-1000 transform ${
+            mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
           }`}
         >
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-50 border border-slate-200 text-sm font-medium text-slate-600 mb-8 shadow-sm hover:shadow-md transition-shadow cursor-default">
-            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+          <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white/5 border border-white/10 text-sm font-medium text-emerald-400 mb-8 backdrop-blur-sm animate-fade-in shadow-[0_0_15px_rgba(52,211,153,0.1)]">
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_10px_rgba(52,211,153,0.5)]" />
             Exclusivo para personas inteligentes
           </div>
 
-          <h1 className="font-[family-name:var(--font-heading)] text-5xl md:text-6xl lg:text-7xl font-bold text-slate-900 leading-[1.1] tracking-tight mb-8">
+          <h1 className="font-[family-name:var(--font-heading)] text-5xl md:text-7xl lg:text-8xl font-bold text-white leading-[1.1] tracking-tight mb-8 drop-shadow-2xl">
             Tus ingresos han crecido. <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-slate-800 to-slate-500">
+            <span className="text-gradient-gold relative">
               ¿Tu estrategia también?
+              <svg className="absolute w-full h-3 -bottom-1 left-0 text-amber-500/30" viewBox="0 0 100 10" preserveAspectRatio="none">
+                <path d="M0 5 Q 50 10 100 5" stroke="currentColor" strokeWidth="2" fill="none" />
+              </svg>
             </span>
           </h1>
 
-          <p className="text-xl md:text-2xl text-slate-600 mb-10 max-w-2xl mx-auto leading-relaxed font-light">
+          <p className="text-xl md:text-2xl text-slate-300 mb-12 max-w-2xl mx-auto leading-relaxed font-light">
             Diagnóstico de optimización patrimonial para profesionistas que buscan
             alinear su estructura financiera con sus metas de largo plazo.
           </p>
 
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-6 mb-20">
             <a
               href="#form"
-              className="btn-primary w-full sm:w-auto px-8 py-4 rounded-lg font-semibold text-lg flex items-center justify-center gap-2 group"
+              className="btn-primary w-full sm:w-auto px-8 py-4 rounded-xl font-semibold text-lg flex items-center justify-center gap-3 group min-w-[240px]"
             >
-              Iniciar diagnóstico gratuito
+              Iniciar diagnóstico
               <svg
                 className="w-5 h-5 transition-transform group-hover:translate-x-1"
                 fill="none"
@@ -62,11 +73,11 @@ export default function Hero() {
             </a>
             <a
               href="#about"
-              className="w-full sm:w-auto px-8 py-4 rounded-lg font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors flex items-center justify-center gap-2"
+              className="w-full sm:w-auto px-8 py-4 rounded-xl font-medium text-slate-300 hover:text-white hover:bg-white/5 border border-transparent hover:border-white/10 transition-all flex items-center justify-center gap-2 backdrop-blur-sm"
             >
-              Conocer más
+              Conocer metodología
               <svg
-                className="w-5 h-5"
+                className="w-5 h-5 opacity-70"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -81,29 +92,36 @@ export default function Hero() {
             </a>
           </div>
 
-          <div className="pt-8 border-t border-slate-100">
-            <p className="text-sm text-slate-400 font-medium mb-4 uppercase tracking-wider">
+          <div className="pt-10 border-t border-white/5 max-w-3xl mx-auto">
+            <p className="text-xs text-slate-500 font-medium mb-6 uppercase tracking-[0.2em]">
               Enfoque en resultados reales
             </p>
-            <div className="flex flex-wrap justify-center gap-8 md:gap-16 opacity-60 grayscale hover:grayscale-0 transition-all duration-500">
-              {/* Placeholder logos - replace with real ones if available */}
-              <div className="flex items-center gap-2">
-                <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12 2L2 7l10 5 10-5-10-5zm0 9l2.5-1.25L12 8.5l-2.5 1.25L12 11zm0 2.5l-5-2.5-5 2.5L12 22l10-8.5-5-2.5-5 2.5z" />
-                </svg>
-                <span className="font-bold">Estrategia</span>
+            <div className="flex flex-wrap justify-center gap-12 md:gap-20">
+              <div className="flex flex-col items-center gap-2 group cursor-default">
+                <div className="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center group-hover:bg-amber-500/10 transition-colors duration-500 border border-white/5 group-hover:border-amber-500/20">
+                  <svg className="w-6 h-6 text-slate-400 group-hover:text-amber-400 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                  </svg>
+                </div>
+                <span className="text-sm font-medium text-slate-400 group-hover:text-slate-200 transition-colors">Estrategia</span>
               </div>
-              <div className="flex items-center gap-2">
-                <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z" />
-                </svg>
-                <span className="font-bold">Control</span>
+              
+              <div className="flex flex-col items-center gap-2 group cursor-default">
+                <div className="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center group-hover:bg-blue-500/10 transition-colors duration-500 border border-white/5 group-hover:border-blue-500/20">
+                  <svg className="w-6 h-6 text-slate-400 group-hover:text-blue-400 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                  </svg>
+                </div>
+                <span className="text-sm font-medium text-slate-400 group-hover:text-slate-200 transition-colors">Control</span>
               </div>
-              <div className="flex items-center gap-2">
-                <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M7 2v11h3v9l7-12h-4l4-8z" />
-                </svg>
-                <span className="font-bold">Crecimiento</span>
+
+              <div className="flex flex-col items-center gap-2 group cursor-default">
+                <div className="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center group-hover:bg-emerald-500/10 transition-colors duration-500 border border-white/5 group-hover:border-emerald-500/20">
+                  <svg className="w-6 h-6 text-slate-400 group-hover:text-emerald-400 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                  </svg>
+                </div>
+                <span className="text-sm font-medium text-slate-400 group-hover:text-slate-200 transition-colors">Crecimiento</span>
               </div>
             </div>
           </div>
