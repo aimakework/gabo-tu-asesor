@@ -1,5 +1,5 @@
-# Build and run (simpler for Coolify + Prisma)
-FROM node:20-alpine
+# Build and run (Debian base avoids Prisma/OpenSSL issues on Alpine)
+FROM node:20-bookworm-slim
 
 WORKDIR /app
 
