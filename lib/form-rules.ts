@@ -39,7 +39,23 @@ export interface FormField {
   options?: FieldOption[];
   scaleOptions?: ScaleOption[];
   showIf?: (answers: FormAnswers) => boolean;
+  validate?: (value: string) => string | null;
 }
+
+const validateEmail = (v: string): string | null => {
+  if (!v) return null;
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim())
+    ? null
+    : "Ingresa un correo válido (ej: nombre@dominio.com)";
+};
+
+const validateTel = (v: string): string | null => {
+  if (!v) return null;
+  const digits = v.replace(/\D/g, "");
+  if (digits.length < 10) return "El teléfono debe tener al menos 10 dígitos";
+  if (digits.length > 13) return "El teléfono es demasiado largo";
+  return null;
+};
 
 export interface FormBlock {
   id: string;
@@ -67,10 +83,10 @@ const SCALE_INTERESADO: ScaleOption[] = [
 
 export const formSchema: FormBlock[] = [
   {
-    id: "basicos",
-    title: "Cuéntame de ti",
+    id: "identidad",
+    title: "Empecemos por lo básico",
     description:
-      "Necesito conocerte para diseñar la estrategia adecuada. Toda la información es confidencial.",
+      "Soy Gabo. Para entender cómo puedo ayudarte, necesito conocerte un poco. Toda la información es confidencial.",
     fields: [
       {
         id: "nombre",
@@ -85,6 +101,7 @@ export const formSchema: FormBlock[] = [
         label: "Teléfono",
         placeholder: "10 dígitos",
         required: true,
+        validate: validateTel,
       },
       {
         id: "email",
@@ -92,7 +109,14 @@ export const formSchema: FormBlock[] = [
         label: "Correo electrónico",
         placeholder: "tu@email.com",
         required: true,
+        validate: validateEmail,
       },
+    ],
+  },
+  {
+    id: "perfil",
+    title: "Cuéntame un poco de ti",
+    fields: [
       {
         id: "ocupacion",
         type: "text",
@@ -125,6 +149,12 @@ export const formSchema: FormBlock[] = [
         placeholder: "Estado, ciudad, colonia",
         required: true,
       },
+    ],
+  },
+  {
+    id: "personal",
+    title: "Datos personales",
+    fields: [
       {
         id: "fuma",
         type: "radio",
@@ -165,13 +195,14 @@ export const formSchema: FormBlock[] = [
         label: "¿Cuántos son y qué edad tienen?",
         placeholder: "Ej: 2 hijos (8 y 12 años), pareja",
         showIf: (a) => a.dependientes === "si",
+        required: true,
       },
     ],
   },
   {
     id: "escala",
     title: "Califica los siguientes temas según tu interés",
-    showIf: (a) => isBlockBasicosComplete(a),
+    description: "Selecciona la opción que mejor te describa.",
     fields: [
       {
         id: "p1",
@@ -256,17 +287,24 @@ export const formSchema: FormBlock[] = [
   },
 ];
 
-function isBlockBasicosComplete(a: FormAnswers): boolean {
-  const block = formSchema.find((b) => b.id === "basicos");
-  if (!block) return false;
-  return block.fields.every((f) => isFieldComplete(f, a));
-}
-
 function isFieldComplete(field: FormField, answers: FormAnswers): boolean {
   if (field.showIf && !field.showIf(answers)) return true;
-  if (!field.required) return true;
-  const v = answers[field.id];
-  return typeof v === "string" && v.trim().length > 0;
+  const v = answers[field.id] ?? "";
+  if (field.required && v.trim().length === 0) return false;
+  if (field.validate && v.trim().length > 0 && field.validate(v) !== null)
+    return false;
+  return true;
+}
+
+export function getFieldError(
+  field: FormField,
+  answers: FormAnswers
+): string | null {
+  if (field.showIf && !field.showIf(answers)) return null;
+  const v = answers[field.id] ?? "";
+  if (field.required && v.trim().length === 0) return "Este campo es requerido";
+  if (field.validate && v.trim().length > 0) return field.validate(v);
+  return null;
 }
 
 export function isBlockComplete(

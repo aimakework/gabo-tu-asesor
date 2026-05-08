@@ -1,11 +1,12 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   CONTACT,
   computeOutcome,
   formSchema,
-  isFormReadyToSubmit,
+  getFieldError,
+  isBlockComplete,
   type FormAnswers,
   type FormBlock,
   type FormField,
@@ -21,22 +22,55 @@ export default function DynamicForm({ onSuccess }: DynamicFormProps) {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-
-  const updateAnswer = (key: string, value: string) => {
-    setAnswers((prev) => ({ ...prev, [key]: value }));
-    setError(null);
-  };
+  const [showErrors, setShowErrors] = useState(false);
+  const [currentStep, setCurrentStep] = useState(0);
 
   const visibleBlocks = useMemo(
     () => formSchema.filter((b) => !b.showIf || b.showIf(answers)),
     [answers]
   );
 
-  const ready = useMemo(() => isFormReadyToSubmit(answers), [answers]);
+  // Si el step actual queda fuera de rango porque cambiaron las condiciones,
+  // ajustarlo para no quedar en limbo.
+  useEffect(() => {
+    if (currentStep >= visibleBlocks.length) {
+      setCurrentStep(Math.max(0, visibleBlocks.length - 1));
+    }
+  }, [visibleBlocks.length, currentStep]);
+
+  const block = visibleBlocks[currentStep];
+  const isLast = currentStep === visibleBlocks.length - 1;
+  const isFirst = currentStep === 0;
+  const blockReady = block ? isBlockComplete(block, answers) : false;
+
+  const updateAnswer = (key: string, value: string) => {
+    setAnswers((prev) => ({ ...prev, [key]: value }));
+    setError(null);
+  };
+
+  const handleNext = () => {
+    if (!block) return;
+    if (!blockReady) {
+      setShowErrors(true);
+      return;
+    }
+    setShowErrors(false);
+    setCurrentStep((s) => Math.min(s + 1, visibleBlocks.length - 1));
+    scrollTopOfModal();
+  };
+
+  const handleBack = () => {
+    setShowErrors(false);
+    setCurrentStep((s) => Math.max(0, s - 1));
+    scrollTopOfModal();
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!ready) return;
+    if (!blockReady) {
+      setShowErrors(true);
+      return;
+    }
     setLoading(true);
     setError(null);
     try {
@@ -62,54 +96,102 @@ export default function DynamicForm({ onSuccess }: DynamicFormProps) {
     return <OutcomeScreen outcome={computeOutcome(answers)} />;
   }
 
+  if (!block) return null;
+
+  const progress = ((currentStep + 1) / visibleBlocks.length) * 100;
+
   return (
-    <form onSubmit={handleSubmit} className="space-y-12">
-      {visibleBlocks.map((block) => (
-        <BlockRenderer
-          key={block.id}
-          block={block}
-          answers={answers}
-          onChange={updateAnswer}
-        />
-      ))}
+    <form onSubmit={handleSubmit} className="space-y-8">
+      {/* Progress */}
+      <div>
+        <div className="flex justify-between items-center mb-2">
+          <span className="text-xs uppercase tracking-wider font-bold text-slate-500">
+            Paso {currentStep + 1} de {visibleBlocks.length}
+          </span>
+          <span className="text-xs text-slate-400">
+            {Math.round(progress)}%
+          </span>
+        </div>
+        <div className="h-1 bg-slate-100 rounded-full overflow-hidden">
+          <div
+            className="h-full bg-[#F4B123] transition-all duration-500"
+            style={{ width: `${progress}%` }}
+          />
+        </div>
+      </div>
+
+      <BlockRenderer
+        block={block}
+        answers={answers}
+        onChange={updateAnswer}
+        showErrors={showErrors}
+      />
 
       {error && (
         <p className="text-red-500 text-sm bg-red-50 p-3 rounded-md">{error}</p>
       )}
 
-      <div className="pt-4">
-        {ready ? (
+      {showErrors && !blockReady && (
+        <p className="text-amber-700 text-sm bg-amber-50 p-3 rounded-md">
+          Completa los campos requeridos para continuar.
+        </p>
+      )}
+
+      <div className="flex items-center justify-between gap-4 pt-4 border-t border-slate-100">
+        <button
+          type="button"
+          onClick={handleBack}
+          disabled={isFirst}
+          className="text-slate-500 hover:text-slate-900 font-medium disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+        >
+          ← Atrás
+        </button>
+
+        {isLast ? (
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-4 px-10 rounded-xl font-bold text-lg bg-[#0f172a] text-white shadow-lg hover:bg-[#1e293b] hover:shadow-xl hover:-translate-y-1 transition-all disabled:opacity-70 disabled:cursor-not-allowed disabled:transform-none"
+            className="py-3 px-8 rounded-xl font-bold text-base bg-[#0f172a] text-white shadow-lg hover:bg-[#1e293b] hover:shadow-xl hover:-translate-y-0.5 transition-all disabled:opacity-70 disabled:cursor-not-allowed disabled:transform-none"
           >
             {loading ? "Procesando..." : "Enviar diagnóstico"}
           </button>
         ) : (
-          <p className="text-slate-400 text-sm italic text-center">
-            Completa los campos para continuar...
-          </p>
+          <button
+            type="button"
+            onClick={handleNext}
+            className="py-3 px-8 rounded-xl font-bold text-base bg-[#0f172a] text-white shadow-lg hover:bg-[#1e293b] hover:shadow-xl hover:-translate-y-0.5 transition-all"
+          >
+            Siguiente →
+          </button>
         )}
       </div>
     </form>
   );
 }
 
+function scrollTopOfModal() {
+  if (typeof document !== "undefined") {
+    const scroller = document.querySelector(".custom-scrollbar");
+    if (scroller) scroller.scrollTo({ top: 0, behavior: "smooth" });
+  }
+}
+
 function BlockRenderer({
   block,
   answers,
   onChange,
+  showErrors,
 }: {
   block: FormBlock;
   answers: FormAnswers;
   onChange: (k: string, v: string) => void;
+  showErrors: boolean;
 }) {
   return (
     <section className="animate-fade-in space-y-6">
       {block.title && (
-        <header className="border-b border-slate-100 pb-3">
-          <h4 className="text-xl font-[family-name:var(--font-heading)] font-bold text-[#0f172a]">
+        <header>
+          <h4 className="text-2xl font-[family-name:var(--font-heading)] font-bold text-[#0f172a]">
             {block.title}
           </h4>
           {block.description && (
@@ -122,14 +204,20 @@ function BlockRenderer({
       <div className="space-y-6">
         {block.fields
           .filter((f) => !f.showIf || f.showIf(answers))
-          .map((field) => (
-            <FieldRenderer
-              key={field.id}
-              field={field}
-              value={answers[field.id] ?? ""}
-              onChange={(v) => onChange(field.id, v)}
-            />
-          ))}
+          .map((field) => {
+            const error = showErrors
+              ? getFieldError(field, answers)
+              : null;
+            return (
+              <FieldRenderer
+                key={field.id}
+                field={field}
+                value={answers[field.id] ?? ""}
+                onChange={(v) => onChange(field.id, v)}
+                error={error}
+              />
+            );
+          })}
       </div>
     </section>
   );
@@ -137,6 +225,8 @@ function BlockRenderer({
 
 const inputClasses =
   "w-full px-0 py-3 bg-transparent border-b-2 border-slate-200 text-[#0f172a] placeholder-slate-400 focus:outline-none focus:border-[#F4B123] transition-colors font-medium text-lg";
+const inputErrorClasses =
+  "w-full px-0 py-3 bg-transparent border-b-2 border-red-400 text-[#0f172a] placeholder-slate-400 focus:outline-none focus:border-red-500 transition-colors font-medium text-lg";
 const labelClasses =
   "block text-slate-500 text-sm uppercase tracking-wider font-bold mb-1";
 const selectClasses =
@@ -146,13 +236,15 @@ function FieldRenderer({
   field,
   value,
   onChange,
+  error,
 }: {
   field: FormField;
   value: string;
   onChange: (v: string) => void;
+  error: string | null;
 }) {
-  const { type, label, placeholder, required, options, scaleOptions, hint } =
-    field;
+  const { type, label, placeholder, options, scaleOptions, hint } = field;
+  const inputCls = error ? inputErrorClasses : inputClasses;
 
   if (type === "text" || type === "email" || type === "tel" || type === "date") {
     return (
@@ -162,11 +254,17 @@ function FieldRenderer({
           type={type}
           value={value}
           onChange={(e) => onChange(e.target.value)}
-          required={required}
           placeholder={placeholder}
-          className={inputClasses}
+          inputMode={type === "tel" ? "numeric" : undefined}
+          autoComplete={
+            type === "email" ? "email" : type === "tel" ? "tel" : "off"
+          }
+          className={inputCls}
         />
-        {hint && <p className="text-xs text-slate-400 mt-1">{hint}</p>}
+        {hint && !error && (
+          <p className="text-xs text-slate-400 mt-1">{hint}</p>
+        )}
+        {error && <p className="text-xs text-red-500 mt-1">{error}</p>}
       </div>
     );
   }
@@ -178,11 +276,15 @@ function FieldRenderer({
         <textarea
           value={value}
           onChange={(e) => onChange(e.target.value)}
-          required={required}
           placeholder={placeholder}
           rows={3}
-          className="w-full px-4 py-3 bg-slate-50 border-2 border-slate-200 rounded-lg text-[#0f172a] placeholder-slate-400 focus:outline-none focus:border-[#F4B123] focus:bg-white transition-colors font-medium text-base resize-y"
+          className={`w-full px-4 py-3 bg-slate-50 border-2 rounded-lg text-[#0f172a] placeholder-slate-400 focus:outline-none focus:bg-white transition-colors font-medium text-base resize-y ${
+            error
+              ? "border-red-400 focus:border-red-500"
+              : "border-slate-200 focus:border-[#F4B123]"
+          }`}
         />
+        {error && <p className="text-xs text-red-500 mt-1">{error}</p>}
       </div>
     );
   }
@@ -216,7 +318,6 @@ function FieldRenderer({
                   value={opt.value}
                   checked={checked}
                   onChange={(e) => onChange(e.target.value)}
-                  required={required}
                   className="hidden"
                 />
                 <span className="text-base text-[#0f172a]">{opt.label}</span>
@@ -224,6 +325,7 @@ function FieldRenderer({
             );
           })}
         </div>
+        {error && <p className="text-xs text-red-500 mt-2">{error}</p>}
       </div>
     );
   }
@@ -236,7 +338,6 @@ function FieldRenderer({
           <select
             value={value}
             onChange={(e) => onChange(e.target.value)}
-            required={required}
             className={selectClasses}
           >
             <option value="" disabled>
@@ -252,6 +353,7 @@ function FieldRenderer({
             <ChevronDown />
           </div>
         </div>
+        {error && <p className="text-xs text-red-500 mt-1">{error}</p>}
       </div>
     );
   }
@@ -280,7 +382,6 @@ function FieldRenderer({
                   value={opt.value}
                   checked={checked}
                   onChange={(e) => onChange(e.target.value)}
-                  required={required}
                   className="hidden"
                 />
                 <span className="block text-xs uppercase tracking-wide opacity-60 mb-1">
@@ -291,6 +392,7 @@ function FieldRenderer({
             );
           })}
         </div>
+        {error && <p className="text-xs text-red-500 mt-2">{error}</p>}
       </div>
     );
   }
