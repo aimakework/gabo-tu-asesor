@@ -72,9 +72,15 @@ export default function Hero() {
             }`}
           >
             <div className="relative aspect-[4/5] w-full max-w-md mx-auto">
-              {/* Abstract geometric composition instead of stock photo */}
-              <div className="absolute inset-0 bg-slate-100"></div>
-              <div className="absolute top-10 left-10 right-10 bottom-10 border border-slate-200"></div>
+              <Image
+                src="https://res.cloudinary.com/dezbovofd/image/upload/v1778213769/second.jpg"
+                alt="Gabo, tu asesor"
+                fill
+                priority
+                className="object-cover"
+                sizes="(max-width: 1024px) 100vw, 40vw"
+              />
+              <div className="absolute top-10 left-10 right-10 bottom-10 border border-white/40 pointer-events-none"></div>
               
               {/* Floating Cards simulating strategy */}
               <div className="absolute top-1/4 -left-12 bg-white p-6 shadow-[0_20px_50px_-12px_rgba(0,0,0,0.1)] max-w-xs border-l-4 border-[#F4B123] animate-float" style={{ animationDelay: "0s" }}>

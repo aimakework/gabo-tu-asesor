@@ -53,7 +53,7 @@ export default function AboutSection() {
             <div className="relative aspect-[4/5] bg-white p-4 shadow-2xl rotate-2 hover:rotate-0 transition-transform duration-700 ease-out">
               <div className="relative h-full w-full bg-slate-100 overflow-hidden grayscale hover:grayscale-0 transition-all duration-700">
                 <Image
-                  src="https://placehold.co/800x1000/e2e8f0/475569?text=Gabo+Portrait"
+                  src="https://res.cloudinary.com/dezbovofd/image/upload/v1778214026/pricnipal.jpg"
                   alt="Gabo Asesor"
                   fill
                   className="object-cover"
